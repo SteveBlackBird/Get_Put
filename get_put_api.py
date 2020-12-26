@@ -5,7 +5,7 @@ from tkinter import messagebox
 from tkinter import ttk
 
 def get_download():
-
+    """Скачать файл методом GET"""
     downloaded_file = requests.get(url.get(), auth=("admin", "pass"))
     if len(file_name.get()) > 0:
         open(path+str(file_name.get()), "wb").write(downloaded_file.content)
@@ -13,20 +13,24 @@ def get_download():
         messagebox.showinfo("Ошибка", "Введите название для файла")
 
 def put_upload():
+    """Загрузить файл на сервер по API методом PUT"""
     downloaded_file = requests.get(url.get(), auth=("admin", "pass"))
     if len(file_name.get()) > 0:
         requests.put(url+str(file_name.get()), data=downloaded_file, auth=("admin", "pass"))
 
 def help_button():
+    """Подсказки для работы со скриптом"""
     messagebox.showinfo("Помощь", "\tПункт 1\n\tПункт 2\n\tПункт 3")
 
 def check_status():
-    response = requests.get(url.get()+str(file_name.get()))
+    """Проверка статуса запрашиваемого URL"""
+    response = requests.get(url.get())
     messagebox.showinfo("Статус", response.status_code)
     if response.status_code != 200:
         print(response.status_code)
 
 def close_app():
+    """Закрывает приложение"""
     exit()
 
 root = Tk()
